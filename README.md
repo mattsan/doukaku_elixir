@@ -1,6 +1,4 @@
-# Doukaku
-
-**TODO: Add description**
+# Doukaku Tools for Elixir
 
 ## Installation
 
@@ -10,7 +8,7 @@ by adding `doukaku` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:doukaku, "~> 0.1.0"}
+    {:doukaku, git: "https://github.com/mattsan/doukaku_elixir"}
   ]
 end
 ```
@@ -18,4 +16,58 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/doukaku](https://hexdocs.pm/doukaku).
+
+## Test Runner
+
+### Example
+
+```
+├── lib
+│   └── koukaita.ex
+└── mix.exs
+```
+
+#### mix.exs
+
+```elixir
+defmodule Koukaita.MixFile do
+  use Mix.Project
+
+  def project do
+    [
+      app: :koukaita,
+      version: "0.1.0",
+      deps: deps()
+    ]
+  end
+
+  def deps do
+    [
+      {:doukaku, git: "https://github.com/mattsan/doukaku_elixir"}
+    ]
+  end
+end
+```
+
+#### lib/koukaita.ex
+
+```elixir
+defmodule Koukaita do
+  use Doukaku.TestRunner
+
+  def solve(_input) do
+    "abc"
+  end
+
+  test("abc", "abc")
+  test("ABC", "ABC")
+end
+```
+
+#### run
+
+```sh
+$ mix deps.get
+$ mix run -e 'Koukaita.run'
+```
 
