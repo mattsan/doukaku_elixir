@@ -53,14 +53,18 @@ end
 
 ```elixir
 defmodule Koukaita do
-  use Doukaku.TestRunner
-
   def solve(_input) do
     "abc"
   end
 
-  test("abc", "abc")
-  test("ABC", "ABC")
+  defmodule TestRunner do
+    use Doukaku.TestRunner
+
+    solver(&Koukaita.solve/1)
+
+    test("abc", "abc")
+    test("ABC", "ABC")
+  end
 end
 ```
 
@@ -68,6 +72,6 @@ end
 
 ```sh
 $ mix deps.get
-$ mix run -e 'Koukaita.run'
+$ mix run -e 'Koukaita.TestRunner.run'
 ```
 

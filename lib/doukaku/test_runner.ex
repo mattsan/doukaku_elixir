@@ -15,6 +15,12 @@ defmodule Doukaku.TestRunner do
     end
   end
 
+  defmacro solver(solver_function) do
+    quote do
+      @solver_function unquote(solver_function)
+    end
+  end
+
   defmacro test(input, expected) do
     quote do
       @tests [{unquote(input), unquote(expected)}|@tests]
@@ -26,7 +32,7 @@ defmodule Doukaku.TestRunner do
       def run do
         @tests
         |> Enum.reverse()
-        |> Enum.each(fn {input, expected} -> judge(input, expected, solve(input)) end)
+        |> Enum.each(fn {input, expected} -> judge(input, expected, @solver_function.(input)) end)
       end
     end
   end
