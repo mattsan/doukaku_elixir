@@ -82,4 +82,6 @@ end
 
 ```sh
 $ mix doukaku.test
+passed
+failed  input: ABC, expected: ABC, actual: abc
 ```
