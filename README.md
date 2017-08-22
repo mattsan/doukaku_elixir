@@ -19,59 +19,67 @@ be found at [https://hexdocs.pm/doukaku](https://hexdocs.pm/doukaku).
 
 ## Test Runner
 
-### Example
+### Generate template
+
+Generate template of solver and test runner.
+
+```sh
+$ mix doukaku.new
+```
 
 ```
-├── lib
-│   └── koukaita.ex
-└── mix.exs
+└── lib
+     ├── koukaita
+     │   ├── solver.exs
+     │   └── test_runner.exs
+     └── koukaita.ex
 ```
 
-#### mix.exs
+#### Generated files
 
 ```elixir
-defmodule Koukaita.MixFile do
-  use Mix.Project
-
-  def project do
-    [
-      app: :koukaita,
-      version: "0.1.0",
-      deps: deps()
-    ]
-  end
-
-  def deps do
-    [
-      {:doukaku, git: "https://github.com/mattsan/doukaku_elixir"}
-    ]
+defmodule Koukaita.Solver do
+  def solve(input) do
+    input
   end
 end
 ```
 
-#### lib/koukaita.ex
+```elixir
+defmodule Koukaita.TestRunner do
+  use Doukaku.TestRunner
+
+  solver &Koukaita.Solver.solve/1
+
+  test("abc", "abc")
+end
+```
+
+#### Edit files
+
+For example...
 
 ```elixir
-defmodule Koukaita do
+defmodule Koukaita.Solver do
   def solve(_input) do
     "abc"
   end
-
-  defmodule TestRunner do
-    use Doukaku.TestRunner
-
-    solver(&Koukaita.solve/1)
-
-    test("abc", "abc")
-    test("ABC", "ABC")
-  end
 end
 ```
 
-#### run
+```elixir
+defmodule Koukaita.TestRunner do
+  use Doukaku.TestRunner
 
-```sh
-$ mix deps.get
-$ mix run -e 'Koukaita.TestRunner.run'
+  solver &Koukaita.Solver.solve/1
+
+  test("abc", "abc")
+  test("ABC", "ABC")
+end
 ```
 
+### Run test
+
+```sh
+$ mix doukaku.test
+```
